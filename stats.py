@@ -1,14 +1,29 @@
-def word_count(book: str):
-    return len(book.split())
+def sort_on(char_count: tuple[str, int]) -> int:
+    return char_count[1]
 
 
-def char_count(book: str):
-    char_dict = {}
-    char_dict_list = []
+def get_num_words(text: str) -> int:
+    words = text.split()
+    return len(words)
 
-    for ch in book.lower():
-        if ch not in char_dict:
-            char_dict[ch] = book.lower().count(ch)
-            char_dict_list.append({"char" : ch, "count" : book.lower().count(ch)})
 
-    return char_dict_list
+def get_chars_dict(text: str) -> dict[str, int]:
+    chars = {}
+    for c in text:
+        lowered = c.lower()
+        if lowered in chars:
+            chars[lowered] += 1
+        else:
+            chars[lowered] = 1
+    return chars
+
+
+def chars_dict_to_sorted_list(chars_dict: dict[str, int]) -> list[tuple[str, int]]:
+    char_lst = []
+
+    for key in chars_dict.keys():
+        char_lst.append((key, chars_dict[key]))
+    
+    char_lst = sorted(char_lst, reverse=True, key=sort_on)
+
+    return char_lst
